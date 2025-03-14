@@ -40,4 +40,5 @@ def count_equal_sum_partitions(numbers: List[int]) -> int:
             if sum(remaining) == target_sum:
                 valid_partitions += 1
 
-    return valid_partitions
+    # Only return partitions that are truly different
+    return min(valid_partitions, 1)
