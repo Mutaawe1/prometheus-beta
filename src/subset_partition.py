@@ -31,14 +31,13 @@ def count_equal_sum_partitions(numbers: List[int]) -> int:
     target_sum = total_sum // 2
     valid_partitions = 0
 
-    # Try all possible subset combinations
-    for r in range(1, n // 2 + 1):
-        for subset in combinations(numbers, r):
-            # Check if this subset's sum is exactly half the total sum
-            if sum(subset) == target_sum:
-                # Verify the remaining subset
-                remaining = [num for num in numbers if num not in subset]
-                if sum(remaining) == target_sum:
-                    valid_partitions += 1
+    # Try all possible subset combinations of half the list size
+    for subset in combinations(numbers, n // 2):
+        # Check if this subset's sum is exactly half the total sum
+        if sum(subset) == target_sum:
+            # Verify the remaining subset
+            remaining = [num for num in numbers if num not in subset]
+            if sum(remaining) == target_sum:
+                valid_partitions += 1
 
     return valid_partitions
