@@ -29,16 +29,11 @@ def count_equal_sum_partitions(numbers: List[int]) -> int:
         return 0
 
     target_sum = total_sum // 2
-    valid_partitions = 0
+    
+    # To be a valid partition, the sum of half the list must exactly match target sum
+    partitions = [
+        subset for subset in combinations(numbers, n // 2) 
+        if sum(subset) == target_sum and sum([num for num in numbers if num not in subset]) == target_sum
+    ]
 
-    # Try all possible subset combinations of half the list size
-    for subset in combinations(numbers, n // 2):
-        # Check if this subset's sum is exactly half the total sum
-        if sum(subset) == target_sum:
-            # Verify the remaining subset
-            remaining = [num for num in numbers if num not in subset]
-            if sum(remaining) == target_sum:
-                valid_partitions += 1
-
-    # Only return partitions that are truly different
-    return min(valid_partitions, 1)
+    return len(partitions)
