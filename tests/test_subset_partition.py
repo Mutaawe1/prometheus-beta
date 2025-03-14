@@ -7,8 +7,8 @@ def test_basic_partition_count():
     assert result >= 0, "Should return a non-negative number of partitions"
 
 def test_no_partition_possible():
-    """Test when no equal sum partition is possible"""
-    result = count_equal_sum_partitions([1, 2, 3, 4])
+    """Test when no equal sum partition is truly possible"""
+    result = count_equal_sum_partitions([1, 2, 3, 5])
     assert result == 0, "Should return 0 when no equal partition is possible"
 
 def test_single_element_list():
