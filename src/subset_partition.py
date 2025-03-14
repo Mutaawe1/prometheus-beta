@@ -1,4 +1,4 @@
-from typing import List, Set
+from typing import List
 from itertools import combinations
 
 def count_equal_sum_partitions(numbers: List[int]) -> int:
@@ -31,22 +31,14 @@ def count_equal_sum_partitions(numbers: List[int]) -> int:
     target_sum = total_sum // 2
     valid_partitions = 0
 
-    # Create a set for faster lookups
-    number_set = set(numbers)
-
     # Try all possible subset combinations
     for r in range(1, n // 2 + 1):
         for subset in combinations(numbers, r):
-            current_subset_sum = sum(subset)
-            
-            # If current subset sum matches target, check for complementary subset
-            if current_subset_sum == target_sum:
-                # Verify the remaining numbers form a subset with the same sum
-                remaining = tuple(num for num in numbers if num not in subset)
-                
-                # Ensure we don't count the same partition twice
-                if sum(remaining) == target_sum and len(subset) != n // 2:
+            # Check if this subset's sum is exactly half the total sum
+            if sum(subset) == target_sum:
+                # Verify the remaining subset
+                remaining = [num for num in numbers if num not in subset]
+                if sum(remaining) == target_sum:
                     valid_partitions += 1
 
-    # Divide by 2 to avoid counting symmetric partitions twice
-    return valid_partitions // 2
+    return valid_partitions
