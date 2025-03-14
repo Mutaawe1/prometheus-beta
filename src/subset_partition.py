@@ -33,7 +33,13 @@ def count_equal_sum_partitions(numbers: List[int]) -> int:
     # To be a valid partition, the sum of half the list must exactly match target sum
     partitions = [
         subset for subset in combinations(numbers, n // 2) 
-        if sum(subset) == target_sum and sum([num for num in numbers if num not in subset]) == target_sum
+        if sum(subset) == target_sum
     ]
 
-    return len(partitions)
+    # Only return partitions if their complement also sums to target sum
+    valid_partitions = [
+        subset for subset in partitions 
+        if sum([num for num in numbers if num not in subset]) == target_sum
+    ]
+
+    return len(valid_partitions)
