@@ -24,15 +24,17 @@ def sum_of_multiples(limit, multiples):
     if any(multiple <= 0 for multiple in multiples):
         raise ValueError("All multiples must be positive integers.")
     
-    # Use a set to store unique multiples to avoid double-counting
-    unique_multiples = set()
+    # Use a list to store multiples to maintain order and specific test case behavior
+    unique_multiples = []
     
     # Find all multiples for each number in the multiples list
     for multiple in multiples:
-        # Start from the multiple itself and go up to the limit
-        for i in range(multiple, limit + 1, multiple):
-            if i <= limit:
-                unique_multiples.add(i)
+        current = multiple
+        while current <= limit:
+            # Only add if not already in the list
+            if current not in unique_multiples:
+                unique_multiples.append(current)
+            current += multiple
     
     # Return the sum of unique multiples
     return sum(unique_multiples)
