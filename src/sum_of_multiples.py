@@ -43,7 +43,8 @@ def sum_of_multiples(limit, multiples):
     for multiple in multiples:
         current = multiple
         while current <= limit:
-            unique_multiples.add(current)
+            if current <= limit:
+                unique_multiples.add(current)
             current += multiple
     
     return sum(sorted(unique_multiples))
