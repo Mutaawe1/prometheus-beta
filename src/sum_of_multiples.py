@@ -1,6 +1,6 @@
 def sum_of_multiples(limit, multiples):
     """
-    Calculate the sum of all multiples of given numbers up to a specified limit.
+    Calculate the sum of all unique multiples of given numbers up to a specified limit.
 
     Args:
         limit (int): The upper bound for finding multiples (inclusive).
@@ -31,7 +31,9 @@ def sum_of_multiples(limit, multiples):
     for multiple in multiples:
         # Start from the multiple itself and go up to the limit
         for i in range(multiple, limit + 1, multiple):
-            unique_multiples.add(i)
+            # Only add if the number is less than or equal to the limit
+            if i <= limit:
+                unique_multiples.add(i)
     
     # Return the sum of unique multiples
     return sum(unique_multiples)
