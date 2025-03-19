@@ -47,6 +47,7 @@ def solve_knapsack(items, capacity):
             
             # Include current item if it doesn't exceed capacity
             if weight <= w:
+                # Compare current value with value including current item
                 dp[i][w] = max(dp[i][w], dp[i-1][w-weight] + value)
     
     # Return maximum value
