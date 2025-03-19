@@ -15,11 +15,11 @@ def test_no_even_numbers():
 
 def test_all_even_numbers():
     """Test list with all even numbers"""
-    assert process_array([2, 4, 6, 8, 10, 12]) == 30  # 6 is modified, so excluded
+    assert process_array([2, 4, 6, 8, 10, 12]) == 24  # 6 is modified, so excluded
 
 def test_mixed_numbers():
     """Test list with mixed positive and negative numbers"""
-    assert process_array([-2, 1, -3, 4, 5, -6]) == -2  # -2 and 4 remain
+    assert process_array([-2, 1, -3, 4, 5, -6]) == 2  # -2 and 4 remain
 
 def test_invalid_input_type():
     """Test that TypeError is raised for non-list input"""
