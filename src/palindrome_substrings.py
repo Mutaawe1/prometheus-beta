@@ -26,27 +26,26 @@ def find_non_overlapping_palindromes(s: str) -> list[str]:
         """Check if a substring is a palindrome."""
         return substr == substr[::-1]
     
-    # Store non-overlapping palindromes
-    non_overlapping = []
-    used_indices = set()
-    
-    # Preference order: longer palindromes first, then lexicographic order
-    candidates = []
-    for length in range(len(s), 1, -1):
+    # Find all palindromic substrings
+    all_palindromes = []
+    for length in range(2, len(s) + 1):
         for start in range(len(s) - length + 1):
             substr = s[start:start+length]
             if is_palindrome(substr):
-                candidates.append((len(substr), substr, start))
+                all_palindromes.append((substr, start, start+length))
     
-    # Sort by length (descending), then lexicographically
-    candidates.sort(key=lambda x: (-x[0], x[1]))
+    # Sort palindromes by length (descending) and lexicographically
+    all_palindromes.sort(key=lambda x: (-len(x[0]), x[0]))
     
-    # Greedily select non-overlapping palindromes
-    for _, substr, start in candidates:
-        # Check if any indices are already used
-        if not any(idx in used_indices for idx in range(start, start+len(substr))):
-            non_overlapping.append(substr)
-            used_indices.update(range(start, start+len(substr)))
+    # Greedy selection of non-overlapping palindromes
+    result = []
+    used_indices = set()
     
-    # Sort lexicographically and return
-    return sorted(set(non_overlapping))
+    for substr, start, end in all_palindromes:
+        # Check if the current substring overlaps with already used indices
+        if not any(idx in used_indices for idx in range(start, end)):
+            result.append(substr)
+            used_indices.update(range(start, end))
+    
+    # Sort result lexicographically
+    return sorted(result)
