@@ -23,20 +23,16 @@ def find_longest_subarray_max_diff(A, k):
     if len(A) == 1:
         return 1
     
-    # Track the longest subarray
+    # Track the longest subarray and its endpoints
     max_length = 1
-    current_length = 1
+    start = 0
     
-    # Iterate through the array to find longest valid subarray
-    for i in range(1, len(A)):
-        # Check if absolute difference meets the condition
-        if abs(A[i] - A[i-1]) >= k:
-            # Extend current subarray
-            current_length += 1
-            # Update max length if needed
-            max_length = max(max_length, current_length)
-        else:
-            # Reset current subarray length
-            current_length = 1
+    # Iterate through potential subarrays
+    for i in range(len(A)):
+        for j in range(i+1, len(A)):
+            # Check if all adjacent elements in this range meet the condition
+            if all(abs(A[x] - A[x-1]) >= k for x in range(i+1, j+1)):
+                # Update max length if this range is longer
+                max_length = max(max_length, j - i + 1)
     
     return max_length
