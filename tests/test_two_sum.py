@@ -6,7 +6,7 @@ def test_find_two_sum_pairs_basic():
     arr = [1, 2, 3, 4, 5]
     target = 7
     expected = [(2, 5), (3, 4)]
-    assert sorted(find_two_sum_pairs(arr, target)) == expected
+    assert find_two_sum_pairs(arr, target) == expected
 
 def test_find_two_sum_pairs_no_pairs():
     """Test when no pairs sum to target."""
@@ -41,5 +41,6 @@ def test_find_two_sum_pairs_negative_numbers():
     """Test with negative numbers and negative target."""
     arr = [-1, -2, -3, -4, -5]
     target = -7
-    expected = [(-2, -5), (-3, -4)]
-    assert sorted(find_two_sum_pairs(arr, target)) == expected
+    result = find_two_sum_pairs(arr, target)
+    assert len(result) == 2
+    assert set(result) == {(-2, -5), (-3, -4)}
