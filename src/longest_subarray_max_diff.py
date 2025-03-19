@@ -24,18 +24,20 @@ def find_longest_subarray_max_diff(A, k):
         return 1
     
     # Function to check if a subarray is valid
-    def is_valid_subarray(start, end):
-        return all(abs(A[i] - A[i-1]) >= k for i in range(start+1, end+1))
+    def is_valid_subarray(arr):
+        return all(abs(arr[i] - arr[i-1]) >= k for i in range(1, len(arr)))
     
     # Track the longest subarray
     max_length = 1
     
-    # Try all possible subarrays
-    for start in range(len(A)):
-        for end in range(start, len(A)):
-            # Check current subarray
-            if is_valid_subarray(start, end):
-                # Update max length if this subarray is longer
-                max_length = max(max_length, end - start + 1)
+    # Sliding window approach
+    for window_size in range(len(A), 1, -1):
+        # Check all subarrays of current window size
+        for start in range(len(A) - window_size + 1):
+            subarray = A[start:start+window_size]
+            
+            # If this subarray is valid, return its length
+            if is_valid_subarray(subarray):
+                return window_size
     
-    return max_length
+    return 1  # Default to 1 if no longer valid subarray found
