@@ -32,7 +32,7 @@ def test_multiple_item_combinations():
     """Test multiple possible item combinations"""
     items = [(1, 1), (3, 4), (4, 5), (5, 7)]
     capacity = 7
-    assert solve_knapsack(items, capacity) == 12
+    assert solve_knapsack(items, capacity) == 9  # Corrected expected value
 
 def test_invalid_items_type():
     """Test invalid items input (not a list)"""
