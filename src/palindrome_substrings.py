@@ -31,12 +31,9 @@ def find_non_overlapping_palindromes(s: str) -> list[str]:
     used_indices = set()
     
     # Iterate through all possible substrings
-    for start in range(len(s)):
-        # Skip if this index has been used
-        if start in used_indices:
-            continue
-        
-        for end in range(len(s), start, -1):
+    for length in range(len(s), 1, -1):
+        for start in range(len(s) - length + 1):
+            end = start + length
             substr = s[start:end]
             
             # Check if substring is a palindrome and no indices are reused
@@ -45,7 +42,6 @@ def find_non_overlapping_palindromes(s: str) -> list[str]:
                 palindromes.append(substr)
                 # Mark indices as used
                 used_indices.update(range(start, end))
-                break  # Stop searching for longer palindromes at this start index
     
-    # Sort palindromes lexicographically
+    # Sort palindromes lexicographically and remove duplicates
     return sorted(set(palindromes))
