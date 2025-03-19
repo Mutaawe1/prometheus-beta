@@ -26,28 +26,27 @@ def find_non_overlapping_palindromes(s: str) -> list[str]:
         """Check if a substring is a palindrome."""
         return substr == substr[::-1]
     
-    # Function to find greedy non-overlapping palindromes
-    def find_non_overlapping(current_s: str) -> list[str]:
-        """
-        Recursively find non-overlapping palindromes.
-        """
-        if len(current_s) < 2:
-            return []
-        
-        # Try to find the longest possible palindrome at the start
-        for length in range(len(current_s), 1, -1):
-            substr = current_s[:length]
+    # Store non-overlapping palindromes
+    non_overlapping = []
+    used_indices = set()
+    
+    # Preference order: longer palindromes first, then lexicographic order
+    candidates = []
+    for length in range(len(s), 1, -1):
+        for start in range(len(s) - length + 1):
+            substr = s[start:start+length]
             if is_palindrome(substr):
-                # Recursively find palindromes in the rest of the string
-                remaining = current_s[length:]
-                other_palindromes = find_non_overlapping(remaining)
-                return [substr] + other_palindromes
-        
-        # If no palindrome found, try with the next character
-        return find_non_overlapping(current_s[1:])
+                candidates.append((len(substr), substr, start))
     
-    # Find non-overlapping palindromes
-    palindromes = find_non_overlapping(s)
+    # Sort by length (descending), then lexicographically
+    candidates.sort(key=lambda x: (-x[0], x[1]))
     
-    # Sort palindromes lexicographically and remove duplicates
-    return sorted(set(palindromes))
+    # Greedily select non-overlapping palindromes
+    for _, substr, start in candidates:
+        # Check if any indices are already used
+        if not any(idx in used_indices for idx in range(start, start+len(substr))):
+            non_overlapping.append(substr)
+            used_indices.update(range(start, start+len(substr)))
+    
+    # Sort lexicographically and return
+    return sorted(set(non_overlapping))
