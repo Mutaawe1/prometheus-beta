@@ -23,25 +23,19 @@ def find_longest_subarray_max_diff(A, k):
     if len(A) == 1:
         return 1
     
+    # Function to check if a subarray is valid
+    def is_valid_subarray(start, end):
+        return all(abs(A[i] - A[i-1]) >= k for i in range(start+1, end+1))
+    
     # Track the longest subarray
     max_length = 1
     
-    # Iterate through all possible start points
+    # Try all possible subarrays
     for start in range(len(A)):
-        current_length = 1
-        last_val = A[start]
-        
-        # Try to extend the subarray from the start point
-        for j in range(start + 1, len(A)):
-            # Check if absolute difference condition is met
-            if abs(A[j] - last_val) >= k:
-                current_length += 1
-                last_val = A[j]
-            else:
-                # Stop extending if condition is not met
-                break
-        
-        # Update max length
-        max_length = max(max_length, current_length)
+        for end in range(start, len(A)):
+            # Check current subarray
+            if is_valid_subarray(start, end):
+                # Update max length if this subarray is longer
+                max_length = max(max_length, end - start + 1)
     
     return max_length
