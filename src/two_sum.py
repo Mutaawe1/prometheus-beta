@@ -31,9 +31,9 @@ def find_two_sum_pairs(arr, target_sum):
         complement = target_sum - num
         if complement in seen and complement != num:
             # Ensure pairs are sorted and unique
-            pair = tuple(sorted((num, complement)))
+            pair = tuple(sorted((num, complement), key=lambda x: (abs(x), x)))
             if pair not in pairs:
                 pairs.append(pair)
         seen.add(num)
 
-    return pairs
+    return sorted(pairs, key=lambda x: (abs(x[0]), x[0]))
