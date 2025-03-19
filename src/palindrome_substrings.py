@@ -26,22 +26,28 @@ def find_non_overlapping_palindromes(s: str) -> list[str]:
         """Check if a substring is a palindrome."""
         return substr == substr[::-1]
     
-    # Find all possible palindromic substrings
-    palindromes = []
-    used_indices = set()
+    # Function to find greedy non-overlapping palindromes
+    def find_non_overlapping(current_s: str) -> list[str]:
+        """
+        Recursively find non-overlapping palindromes.
+        """
+        if len(current_s) < 2:
+            return []
+        
+        # Try to find the longest possible palindrome at the start
+        for length in range(len(current_s), 1, -1):
+            substr = current_s[:length]
+            if is_palindrome(substr):
+                # Recursively find palindromes in the rest of the string
+                remaining = current_s[length:]
+                other_palindromes = find_non_overlapping(remaining)
+                return [substr] + other_palindromes
+        
+        # If no palindrome found, try with the next character
+        return find_non_overlapping(current_s[1:])
     
-    # Iterate through all possible substrings
-    for length in range(len(s), 1, -1):
-        for start in range(len(s) - length + 1):
-            end = start + length
-            substr = s[start:end]
-            
-            # Check if substring is a palindrome and no indices are reused
-            if is_palindrome(substr) and \
-               all(idx not in used_indices for idx in range(start, end)):
-                palindromes.append(substr)
-                # Mark indices as used
-                used_indices.update(range(start, end))
+    # Find non-overlapping palindromes
+    palindromes = find_non_overlapping(s)
     
     # Sort palindromes lexicographically and remove duplicates
     return sorted(set(palindromes))
