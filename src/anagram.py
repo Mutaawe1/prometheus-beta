@@ -1,10 +1,12 @@
+import unicodedata
+
 def isAnagram(str1: str, str2: str) -> bool:
     """
     Determine if two strings are anagrams of each other.
 
     An anagram is a word or phrase formed by rearranging the letters of another word or phrase,
     using all the original letters exactly once. This implementation is case-insensitive
-    and ignores whitespace.
+    and ignores whitespace and accents.
 
     Args:
         str1 (str): The first input string
@@ -19,9 +21,19 @@ def isAnagram(str1: str, str2: str) -> bool:
         >>> isAnagram("hello", "world")
         False
     """
-    # Remove whitespace and convert to lowercase
-    cleaned_str1 = ''.join(str1.lower().split())
-    cleaned_str2 = ''.join(str2.lower().split())
+    # Normalize Unicode characters, remove accents, convert to lowercase
+    def normalize(s: str) -> str:
+        # Decompose characters, remove non-spacing marks, convert to lowercase
+        normalized = ''.join(
+            char.lower() for char in unicodedata.normalize('NFKD', s) 
+            if not unicodedata.combining(char)
+        )
+        # Remove whitespace
+        return ''.join(normalized.split())
+
+    # Normalize and compare
+    cleaned_str1 = normalize(str1)
+    cleaned_str2 = normalize(str2)
 
     # Check if the lengths are different
     if len(cleaned_str1) != len(cleaned_str2):
