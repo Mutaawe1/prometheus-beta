@@ -36,7 +36,7 @@ def test_log_variable_type(caplog):
     assert result == 'dict'
     assert "Variable type: dict" in caplog.text
 
-def test_log_variable_type_with_none():
+def test_log_variable_type_with_none(caplog):
     """
     Test logging of None type.
     """
@@ -45,7 +45,7 @@ def test_log_variable_type_with_none():
     assert result == 'NoneType'
     assert "Variable type: NoneType" in caplog.text
 
-def test_log_variable_type_with_custom_class():
+def test_log_variable_type_with_custom_class(caplog):
     """
     Test logging of a custom class type.
     """
