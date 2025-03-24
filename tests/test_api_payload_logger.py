@@ -23,7 +23,7 @@ def test_log_api_response_payload_size_requests_response():
 def test_log_api_response_payload_size_urllib3_response():
     response = MockUrllib3Response("Test Payload")
     size = log_api_response_payload_size(response)
-    assert size == 11
+    assert size == 12
 
 def test_log_api_response_payload_size_with_custom_logger():
     # Capture log output
@@ -37,8 +37,8 @@ def test_log_api_response_payload_size_with_custom_logger():
     size = log_api_response_payload_size(response, logger=logger)
     
     log_output = log_capture.getvalue().strip()
-    assert "API Response Payload Size: 19 bytes" in log_output
-    assert size == 19
+    assert "API Response Payload Size: 18 bytes" in log_output
+    assert size == 18
 
 def test_log_api_response_payload_size_invalid_input():
     with pytest.raises(TypeError):
