@@ -33,8 +33,8 @@ def test_negative_numbers():
     expected = [3, -1, -1, 2, 2, 2]
     assert sort_by_frequency(input_list) == expected
 
-def test_preserves_first_occurrence_order():
-    """Test that first occurrence order is preserved for equal frequencies"""
+def test_equal_frequency_order():
+    """Test that elements with equal frequencies are sorted by their first occurrence"""
     input_list = [1, 2, 3, 1, 2, 3]
-    expected = [1, 2, 3, 1, 2, 3]
+    expected = [1, 1, 2, 2, 3, 3]
     assert sort_by_frequency(input_list) == expected
