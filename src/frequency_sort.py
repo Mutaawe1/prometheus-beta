@@ -6,7 +6,7 @@ def sort_by_frequency(numbers: List[int]) -> List[int]:
     Sort a list of integers based on their frequency.
     
     Less frequent elements appear first, and more frequent elements appear later.
-    If multiple elements have the same frequency, maintain their relative order.
+    If multiple elements have the same frequency, maintain their original order.
     
     Args:
         numbers (List[int]): Input list of integers to be sorted
@@ -29,5 +29,13 @@ def sort_by_frequency(numbers: List[int]) -> List[int]:
     # Count the frequency of each number
     freq_counter = Counter(numbers)
     
-    # Sort the list based on frequency, then maintain original order for equal frequencies
-    return sorted(numbers, key=lambda x: (freq_counter[x], numbers.index(x)))
+    # Create a stable sort using the original list's indices
+    # This ensures that for equal frequencies, the original order is maintained
+    def custom_key(x):
+        # Tuple with frequency first, then index
+        # Using enumerate() with original list to get correct indices
+        for i, num in enumerate(numbers):
+            if num == x:
+                return (freq_counter[x], i)
+    
+    return sorted(numbers, key=custom_key)
