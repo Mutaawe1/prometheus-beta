@@ -25,7 +25,9 @@ def get_unique_substrings(input_string):
     # Generate all possible substrings
     for start in range(len(input_string)):
         for end in range(start + 1, len(input_string) + 1):
-            unique_substrings.add(input_string[start:end])
+            substring = input_string[start:end]
+            # Ensure single characters and special characters are included
+            unique_substrings.add(substring)
     
     # Return sorted list of unique substrings
     return sorted(list(unique_substrings))
