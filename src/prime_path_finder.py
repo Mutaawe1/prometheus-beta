@@ -34,6 +34,12 @@ def find_prime_path(grid: List[List[int]]) -> Optional[List[Tuple[int, int]]]:
     
     rows, cols = len(grid), len(grid[0])
     
+    # Special case: single cell grid
+    if rows == 1 and cols == 1:
+        if is_prime(grid[0][0]):
+            return [(0, 0)]
+        return None
+    
     # Possible movement directions: up, right, down, left
     directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
     
@@ -56,7 +62,7 @@ def find_prime_path(grid: List[List[int]]) -> Optional[List[Tuple[int, int]]]:
             Optional[List[Tuple[int, int]]]: Path if a prime sequence is found
         """
         # Check if the current sequence forms a prime number
-        # Require at least 2 digits to prevent single primes
+        # Special case: for two cells, check the first two-digit number
         if len(current_sequence) > 1:
             current_num = int(''.join(map(str, current_sequence)))
             if is_prime(current_num):
