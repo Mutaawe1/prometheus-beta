@@ -26,18 +26,11 @@ def find_palindromic_substrings(s: str) -> list[str]:
     
     # Check all possible substrings
     for i in range(len(s)):
-        # Odd length palindromes
-        left, right = i, i
-        while left >= 0 and right < len(s) and s[left] == s[right]:
-            palindromes.add(s[left:right+1])
-            left -= 1
-            right += 1
-        
-        # Even length palindromes
-        left, right = i, i+1
-        while left >= 0 and right < len(s) and s[left] == s[right]:
-            palindromes.add(s[left:right+1])
-            left -= 1
-            right += 1
+        for j in range(i, len(s)):
+            # Check if substring is a palindrome
+            substring = s[i:j+1]
+            if substring == substring[::-1]:
+                palindromes.add(substring)
     
+    # Sort by length (shorter first) and then lexicographically
     return sorted(list(palindromes), key=lambda x: (len(x), x))
