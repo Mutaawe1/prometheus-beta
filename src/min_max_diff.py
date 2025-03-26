@@ -21,7 +21,8 @@ def find_min_max_difference(number_string):
         try:
             numbers.append(int(num.strip()))
         except ValueError:
-            pass
+            # If any part of the string cannot be converted to an integer, raise an error
+            raise ValueError("Input must be a comma-separated string of integers")
     
     # Check for empty list after parsing
     if not numbers:
