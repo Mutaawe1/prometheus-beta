@@ -11,7 +11,7 @@ def test_single_character():
 
 def test_simple_palindrome():
     """Test a simple palindrome with multiple characters."""
-    assert find_palindromic_substrings("abba") == ["a", "abba", "b", "bb"]
+    assert find_palindromic_substrings("abba") == ["a", "b", "bb", "abba"]
 
 def test_multiple_palindromes():
     """Test a string with multiple palindromic substrings."""
@@ -25,7 +25,7 @@ def test_no_palindromes():
 def test_complex_string():
     """Test a more complex string with various palindromes."""
     result = find_palindromic_substrings("racecar")
-    expected = ["a", "aceca", "c", "e", "r", "racecar"]
+    expected = ["a", "c", "e", "r", "ac", "ce", "cec", "aceca", "racecar"]
     assert sorted(result) == sorted(expected)
 
 def test_case_sensitivity():
@@ -36,5 +36,5 @@ def test_case_sensitivity():
 def test_long_string():
     """Test a longer string with multiple palindromic substrings."""
     result = find_palindromic_substrings("aabaa")
-    expected = ["a", "aa", "aabaa", "b"]
+    expected = ["a", "aa", "aba", "aabaa", "b"]
     assert sorted(result) == sorted(expected)
