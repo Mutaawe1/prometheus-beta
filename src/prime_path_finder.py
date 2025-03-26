@@ -55,9 +55,12 @@ def find_prime_path(grid: List[List[int]]) -> Optional[List[Tuple[int, int]]]:
         Returns:
             Optional[List[Tuple[int, int]]]: Path if a prime sequence is found
         """
-        # If the current sequence is a prime number, return the path
-        if is_prime(int(''.join(map(str, current_sequence)))):
-            return current_path.copy()
+        # Check if the current sequence forms a prime number
+        # Require at least 2 digits to prevent single primes
+        if len(current_sequence) > 1:
+            current_num = int(''.join(map(str, current_sequence)))
+            if is_prime(current_num):
+                return current_path.copy()
         
         # Try all four directions
         for dx, dy in directions:
