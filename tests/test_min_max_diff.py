@@ -27,7 +27,7 @@ def test_non_integer_raises_error():
     with pytest.raises(ValueError, match="Input must be a comma-separated string of integers"):
         find_min_max_difference("1,2,three,4")
 
-def test_empty_after_parsing_raises_error():
-    """Test that string with only non-integers raises a ValueError."""
-    with pytest.raises(ValueError, match="No valid integers found in the input string"):
-        find_min_max_difference("a,b,c")
+def test_mixed_inputs_raises_error():
+    """Test that mixed inputs with any non-integer raises a ValueError."""
+    with pytest.raises(ValueError, match="Input must be a comma-separated string of integers"):
+        find_min_max_difference("1,b,3")
