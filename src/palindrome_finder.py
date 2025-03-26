@@ -40,4 +40,4 @@ def find_palindromic_substrings(s: str) -> list[str]:
             left -= 1
             right += 1
     
-    return sorted(list(palindromes))
+    return sorted(list(palindromes), key=lambda x: (len(x), x))
