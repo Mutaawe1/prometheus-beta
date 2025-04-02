@@ -18,7 +18,6 @@ def count_non_vowel_characters(input_string):
     # Define vowels (lowercase)
     vowels = set('aeiou')
     
-    # Count non-vowel characters (case-insensitive, alphabetic only)
-    non_vowel_count = sum(1 for char in input_string.lower() if char not in vowels and char.isalpha())
-    
-    return non_vowel_count
+    # Count non-vowel characters (case-insensitive, alphabetic characters only)
+    return sum(1 for char in input_string.lower() 
+               if char not in vowels and char.isalpha())
