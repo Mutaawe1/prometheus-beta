@@ -1,4 +1,5 @@
 import os
+import stat
 from datetime import datetime
 
 def get_file_last_modified_date(file_path):
@@ -19,15 +20,18 @@ def get_file_last_modified_date(file_path):
     normalized_path = os.path.abspath(file_path)
     
     try:
-        # Check file existence and is a regular file
+        # Check file existence
         if not os.path.exists(normalized_path):
             raise FileNotFoundError(f"File not found: {file_path}")
         
+        # Check if it's a regular file
         if not os.path.isfile(normalized_path):
             raise OSError(f"Error accessing file: Not a regular file - {file_path}")
         
-        # Try to access file stats to catch permission issues
-        os.stat(normalized_path)
+        # Check file permissions
+        file_stats = os.stat(normalized_path)
+        if not bool(file_stats.st_mode & stat.S_IRUSR):
+            raise PermissionError("No read permission")
         
         # Get the last modified timestamp
         modified_timestamp = os.path.getmtime(normalized_path)
@@ -36,5 +40,5 @@ def get_file_last_modified_date(file_path):
         return datetime.fromtimestamp(modified_timestamp)
     except PermissionError:
         raise OSError(f"Error accessing file: Permission denied - {file_path}")
-    except OSError as e:
+    except Exception as e:
         raise OSError(f"Error accessing file: {str(e)}")
