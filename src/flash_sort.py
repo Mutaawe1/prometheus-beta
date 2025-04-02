@@ -41,8 +41,9 @@ def flash_sort(arr):
     # Number of classes/buckets
     m = max(1, int(0.42 * len(arr)))
     
-    # Create classes
+    # Create classes and auxiliary arrays
     classes = [0] * m
+    l = [0] * m
     
     # Calculate class weights
     c1 = (m - 1) / (max_val - min_val)
@@ -52,17 +53,46 @@ def flash_sort(arr):
         k = int(((x - min_val) * c1))
         classes[k] += 1
     
-    # Convert to cumulative sum
+    # Calculate the start of each class
+    l[0] = 0
     for i in range(1, m):
-        classes[i] += classes[i-1]
+        l[i] = l[i-1] + classes[i-1]
     
-    # Reorder elements
-    output = [None] * len(arr)
+    # Permute the elements
+    count = 0
+    k = m - 1
+    while count < len(arr):
+        while k >= 0 and classes[k] == 0:
+            k -= 1
+        
+        if k < 0:
+            break
+        
+        x = arr[l[k]]
+        j = k
+        while j >= 0:
+            jk = int(((x - min_val) * c1))
+            if jk != k:
+                # Swap
+                temp = arr[l[jk]]
+                arr[l[jk]] = x
+                x = temp
+                classes[jk] -= 1
+                j = jk
+            else:
+                arr[l[k]] = x
+                classes[k] -= 1
+                break
+        
+        count += 1
     
-    # Backward pass to preserve stability
-    for x in reversed(arr):
-        k = int(((x - min_val) * c1))
-        classes[k] -= 1
-        output[classes[k]] = x
+    # Final insertion sort for fine-tuning
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
     
-    return output
+    return arr
