@@ -41,8 +41,9 @@ def compress_lzma2(input_data: Union[bytes, str, BinaryIO],
         return b''
 
     # Create LZMA2 compressor with specified preset and check
+    # Use FORMAT_XZ to support integrity checks
     compressor = lzma.LZMACompressor(
-        format=lzma.FORMAT_ALONE,  # LZMA2 uses ALONE format
+        format=lzma.FORMAT_XZ,  # Use XZ format to support integrity checks
         preset=preset,
         check=check
     )
