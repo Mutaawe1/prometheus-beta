@@ -1,4 +1,4 @@
-from collections import Counter
+import re
 
 def count_anagrams(s):
     """
@@ -14,11 +14,15 @@ def count_anagrams(s):
         int: Number of distinct anagrams in the string.
     
     Raises:
-        ValueError: If input contains characters other than lowercase letters.
+        ValueError: If input is empty or contains non-lowercase letters.
     """
     # Validate input
-    if not s or not s.islower():
-        raise ValueError("Input must be a non-empty string of lowercase letters")
+    if not s:
+        raise ValueError("Input must be a non-empty string")
+    
+    # Check if input contains only lowercase letters
+    if not re.match(r'^[a-z]+$', s):
+        raise ValueError("Input must contain only lowercase letters")
     
     # Set to store unique sorted anagram signatures
     anagram_signatures = set()
