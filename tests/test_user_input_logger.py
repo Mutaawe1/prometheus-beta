@@ -7,6 +7,10 @@ from src.user_input_logger import log_user_input
 
 def test_log_user_input_default_logging(monkeypatch, caplog):
     """Test logging to default stream (stdout)"""
+    # Capture stdout
+    captured_output = StringIO()
+    monkeypatch.setattr(sys, 'stdout', captured_output)
+    
     # Simulate user input
     monkeypatch.setattr('builtins.input', lambda: "Test input")
     
@@ -18,7 +22,11 @@ def test_log_user_input_default_logging(monkeypatch, caplog):
     
     # Verify
     assert result == "Test input"
-    assert "Test input" in caplog.text
+    
+    # Check stdout
+    captured_output.seek(0)
+    stdout_content = captured_output.read()
+    assert "Test input" in stdout_content
 
 def test_log_user_input_to_file(tmp_path, monkeypatch):
     """Test logging to a specific file"""
