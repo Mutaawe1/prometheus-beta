@@ -15,19 +15,26 @@ def get_file_last_modified_date(file_path):
         FileNotFoundError: If the file does not exist.
         OSError: If there's an error accessing the file.
     """
+    # Normalize the path to resolve any relative paths
+    normalized_path = os.path.abspath(file_path)
+    
     try:
-        # Ensure it's a file, not a directory
-        if not os.path.isfile(file_path):
+        # Check file existence and is a regular file
+        if not os.path.exists(normalized_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
+        
+        if not os.path.isfile(normalized_path):
             raise OSError(f"Error accessing file: Not a regular file - {file_path}")
         
+        # Try to access file stats to catch permission issues
+        os.stat(normalized_path)
+        
         # Get the last modified timestamp
-        modified_timestamp = os.path.getmtime(file_path)
+        modified_timestamp = os.path.getmtime(normalized_path)
         
         # Convert timestamp to datetime object
         return datetime.fromtimestamp(modified_timestamp)
     except PermissionError:
         raise OSError(f"Error accessing file: Permission denied - {file_path}")
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File not found: {file_path}")
     except OSError as e:
         raise OSError(f"Error accessing file: {str(e)}")
