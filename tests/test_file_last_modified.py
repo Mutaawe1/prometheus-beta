@@ -20,12 +20,12 @@ def test_get_file_last_modified_date_existing_file(tmp_path):
 
 def test_get_file_last_modified_date_nonexistent_file():
     """Test that FileNotFoundError is raised for non-existent file."""
-    with pytest.raises(FileNotFoundError, match="File not found"):
+    with pytest.raises(FileNotFoundError, match="File not found: non_existent_file.txt"):
         get_file_last_modified_date("non_existent_file.txt")
 
 def test_get_file_last_modified_date_directory(tmp_path):
     """Test that an error is raised when trying to get modified date of a directory."""
-    with pytest.raises(OSError, match="Error accessing file"):
+    with pytest.raises(OSError, match="Error accessing file: Not a regular file"):
         get_file_last_modified_date(str(tmp_path))
 
 def test_get_file_last_modified_date_permissions(tmp_path):
@@ -36,7 +36,7 @@ def test_get_file_last_modified_date_permissions(tmp_path):
     test_file.chmod(0o000)  # Remove all permissions
     
     try:
-        with pytest.raises(OSError, match="Error accessing file"):
+        with pytest.raises(OSError, match="Error accessing file: Permission denied"):
             get_file_last_modified_date(str(test_file))
     finally:
         # Restore permissions to avoid cleanup issues
