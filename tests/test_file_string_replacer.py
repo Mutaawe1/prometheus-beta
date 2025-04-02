@@ -11,7 +11,7 @@ def test_basic_string_replacement(tmp_path):
     replacements = replace_string_in_file(str(test_file), "hello", "goodbye")
     
     # Check results
-    assert replacements == 2
+    assert replacements == 1
     assert test_file.read_text() == "Hello world, goodbye python"
 
 def test_case_sensitive_replacement(tmp_path):
