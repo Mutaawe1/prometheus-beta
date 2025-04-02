@@ -62,6 +62,10 @@ def run_length_decode(compressed_data):
     if not isinstance(compressed_data, list):
         raise TypeError("Input must be a list of (item, count) tuples")
     
+    # Handle empty input case
+    if not compressed_data:
+        return []
+    
     # Decode the compressed data
     decoded = []
     for item, count in compressed_data:
