@@ -16,7 +16,8 @@ def run_length_encode(data):
     if not isinstance(data, (str, list)):
         raise TypeError("Input must be a string or list")
     
-    if not data:
+    # Raise ValueError for empty inputs
+    if len(data) == 0:
         raise ValueError("Input cannot be empty")
     
     # If input is a string, convert to list of characters
@@ -25,9 +26,6 @@ def run_length_encode(data):
     
     # Perform Run-Length Encoding
     compressed = []
-    if not data:
-        return compressed
-    
     current_item = data[0]
     count = 1
     
@@ -56,15 +54,15 @@ def run_length_decode(compressed_data):
     
     Raises:
         TypeError: If input is not a list of tuples
-        ValueError: If tuples are not in correct format
+        ValueError: If tuples are not in correct format or input is empty
     """
     # Validate input
     if not isinstance(compressed_data, list):
         raise TypeError("Input must be a list of (item, count) tuples")
     
-    # Handle empty input case
-    if not compressed_data:
-        return []
+    # Raise ValueError for empty inputs
+    if len(compressed_data) == 0:
+        raise ValueError("Input cannot be empty")
     
     # Decode the compressed data
     decoded = []
