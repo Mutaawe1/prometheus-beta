@@ -50,14 +50,12 @@ def find_longest_increasing_subsequence(arr):
     
     for i in range(1, n):
         for j in range(i):
-            # Modify condition to choose the subsequence with the smallest elements
-            if arr[i] > arr[j] and (lengths[i] < lengths[j] + 1 or 
-                                     (lengths[i] == lengths[j] + 1 and arr[i] < arr[max_index])):
+            if arr[i] > arr[j] and lengths[i] < lengths[j] + 1:
                 lengths[i] = lengths[j] + 1
                 predecessors[i] = j
         
         # Track the overall maximum
-        if lengths[i] > max_length or (lengths[i] == max_length and arr[i] < arr[max_index]):
+        if lengths[i] > max_length:
             max_length = lengths[i]
             max_index = i
     
