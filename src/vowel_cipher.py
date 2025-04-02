@@ -21,21 +21,19 @@ def replace_vowels(input_string):
     vowels_lower = 'aeiou'
     vowels_upper = 'AEIOU'
     
+    # Define a specific replacement mapping
+    replace_map_lower = {'a': 'e', 'e': 'i', 'i': 'o', 'o': 'u', 'u': 'a'}
+    replace_map_upper = {'A': 'E', 'E': 'I', 'I': 'O', 'O': 'U', 'U': 'A'}
+    
     # Function to replace a single vowel
     def replace_single_vowel(char):
-        # Check lowercase vowels
-        if char.lower() in vowels_lower:
-            # Determine the current vowel in lowercase
-            current_vowel = char.lower()
-            
-            # Find the index of the current vowel
-            index = vowels_lower.index(current_vowel)
-            
-            # Get the next vowel with the same case
-            next_vowel = vowels_lower[(index + 1) % 5]
-            
-            # Return the next vowel maintaining the original case
-            return next_vowel.upper() if char.isupper() else next_vowel
+        # Check and replace lowercase vowels
+        if char in vowels_lower:
+            return replace_map_lower[char]
+        
+        # Check and replace uppercase vowels
+        if char in vowels_upper:
+            return replace_map_upper[char]
         
         # If not a vowel, return the original character
         return char
