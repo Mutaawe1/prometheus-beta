@@ -25,12 +25,16 @@ def replace_vowels(input_string):
     def replace_single_vowel(char):
         # Check lowercase vowels
         if char.lower() in vowels_lower:
-            # Determine the index in the appropriate vowel sequence
-            vowel_sequence = vowels_lower if char.islower() else vowels_upper
-            index = vowel_sequence.index(char.lower())
-            next_vowel = vowel_sequence[(index + 1) % 5]
+            # Determine the current vowel in lowercase
+            current_vowel = char.lower()
             
-            # Return the next vowel with the same case as the original character
+            # Find the index of the current vowel
+            index = vowels_lower.index(current_vowel)
+            
+            # Get the next vowel with the same case
+            next_vowel = vowels_lower[(index + 1) % 5]
+            
+            # Return the next vowel maintaining the original case
             return next_vowel.upper() if char.isupper() else next_vowel
         
         # If not a vowel, return the original character
