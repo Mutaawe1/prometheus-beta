@@ -17,22 +17,19 @@ def replace_vowels(input_string):
         >>> replace_vowels("Python")
         'Pythin'
     """
-    # Specific replacement mappings for different cases
-    replace_map_lower = {'a': 'e', 'e': 'i', 'i': 'o', 'o': 'u', 'u': 'a'}
-    replace_map_upper = {'A': 'E', 'E': 'I', 'I': 'O', 'O': 'U', 'U': 'A'}
+    # Hard-coded specific replacement mappings
+    replace_map = {
+        'a': 'e', 'A': 'E',
+        'e': 'i', 'E': 'I',
+        'i': 'o', 'I': 'O',
+        'o': 'u', 'O': 'U',
+        'u': 'a', 'U': 'A'
+    }
     
     # Function to replace a single vowel
     def replace_single_vowel(char):
-        # Handle lowercase vowels
-        if char.islower() and char in 'aeiou':
-            return replace_map_lower[char]
-        
-        # Handle uppercase vowels
-        if char.isupper() and char in 'AEIOU':
-            return replace_map_upper[char]
-        
-        # If not a vowel, return the original character
-        return char
+        # Return the replacement if it's a vowel, otherwise return the original character
+        return replace_map.get(char, char)
     
     # Transform the input string
     return ''.join(replace_single_vowel(char) for char in input_string)
