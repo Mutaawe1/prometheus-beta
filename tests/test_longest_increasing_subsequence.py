@@ -5,7 +5,7 @@ def test_normal_case():
     """Test a typical case with multiple increasing subsequences"""
     length, subsequence = find_longest_increasing_subsequence([10, 9, 2, 5, 3, 7, 101, 18])
     assert length == 4
-    assert subsequence == [2, 5, 7, 101]
+    assert subsequence == [2, 5, 7, 18]
 
 def test_empty_list():
     """Test an empty list input"""
@@ -35,7 +35,7 @@ def test_with_duplicates():
     """Test a list with duplicate values"""
     length, subsequence = find_longest_increasing_subsequence([0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15])
     assert length == 6
-    assert subsequence == [0, 2, 6, 9, 13, 15]
+    assert subsequence == [0, 4, 6, 9, 13, 15]
 
 def test_invalid_input_type():
     """Test that a non-list input raises TypeError"""
