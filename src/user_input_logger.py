@@ -16,8 +16,9 @@ def log_user_input(log_file: Optional[str] = None) -> str:
     Raises:
         ValueError: If input is empty or contains only whitespace
     """
-    # Reset logging to start fresh
-    logging.getLogger().handlers.clear()
+    # Reset any existing loggers
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
     
     # Ensure logging directory exists
     if log_file:
@@ -31,25 +32,23 @@ def log_user_input(log_file: Optional[str] = None) -> str:
     if not user_input:
         raise ValueError("Input cannot be empty")
     
-    # Configure logging
-    if log_file:
-        # Configure basic logging to the specific file
-        logging.basicConfig(
-            filename=log_file, 
-            level=logging.INFO, 
-            format='%(asctime)s - %(message)s',
-            filemode='w'  # Write mode to overwrite existing content
-        )
-    else:
-        # Stream logging
-        logging.basicConfig(
-            level=logging.INFO, 
-            format='%(asctime)s - %(message)s',
-            stream=sys.stdout
-        )
-    
-    # Get logger and log the input
+    # Configure logger
     logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    
+    # Add appropriate handler
+    if log_file:
+        # File handler
+        handler = logging.FileHandler(log_file, mode='w')
+    else:
+        # Stream handler
+        handler = logging.StreamHandler(sys.stdout)
+    
+    # Set formatter
+    handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
+    logger.addHandler(handler)
+    
+    # Log the input
     logger.info(user_input)
     
     return user_input
