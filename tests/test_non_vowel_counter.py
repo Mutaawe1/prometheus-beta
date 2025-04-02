@@ -13,8 +13,8 @@ def test_case_insensitivity():
 
 def test_mixed_characters():
     """Test strings with mixed characters."""
-    assert count_non_vowel_characters("a1b2c3") == 2  # b, c, numbers don't count
-    assert count_non_vowel_characters("Hello, World!") == 4  # h, l, l, d
+    assert count_non_vowel_characters("a1b2c3") == 2  # b, c
+    assert count_non_vowel_characters("Hello, World!") == 4  # H, l, l, d
 
 def test_only_vowels():
     """Test strings containing only vowels."""
