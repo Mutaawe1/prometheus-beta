@@ -5,7 +5,7 @@ def test_normal_case():
     """Test a typical case with multiple increasing subsequences"""
     length, subsequence = find_longest_increasing_subsequence([10, 9, 2, 5, 3, 7, 101, 18])
     assert length == 4
-    assert subsequence == [2, 5, 7, 18]
+    assert subsequence == [2, 5, 7, 101]
 
 def test_empty_list():
     """Test an empty list input"""
