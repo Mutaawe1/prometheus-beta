@@ -32,18 +32,21 @@ def max_simultaneous_intervals(intervals: List[Tuple[Union[int, float], Union[in
     # Sort events by their start and end times
     events = []
     for start, end in intervals:
-        events.append((start, 1))  # Start of interval
-        events.append((end, -1))   # End of interval
+        events.append((start, True))   # Start of interval (True means start)
+        events.append((end, False))    # End of interval (False means end)
     
     # Sort events to handle overlapping intervals
-    events.sort()
+    events.sort(key=lambda x: (x[0], not x[1]))
     
     max_simultaneous = 0
     current_simultaneous = 0
     
     # Sweep through events to count simultaneous intervals
-    for _, change in events:
-        current_simultaneous += change
+    for _, is_start in events:
+        if is_start:
+            current_simultaneous += 1
+        else:
+            current_simultaneous -= 1
         max_simultaneous = max(max_simultaneous, current_simultaneous)
     
     return max_simultaneous
