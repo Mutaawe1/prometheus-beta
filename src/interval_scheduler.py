@@ -1,6 +1,6 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
-def max_simultaneous_intervals(intervals: List[Tuple[int, int]]) -> int:
+def max_simultaneous_intervals(intervals: List[Tuple[Union[int, float], Union[int, float]]]) -> int:
     """
     Find the maximum number of intervals that can be scheduled simultaneously.
     
@@ -33,7 +33,7 @@ def max_simultaneous_intervals(intervals: List[Tuple[int, int]]) -> int:
     events = []
     for start, end in intervals:
         events.append((start, 1))  # Start of interval
-        events.append((end, -1))   # End of interval
+        events.append((end + 1e-10), -1))   # Slightly delayed end to handle equal times
     
     # Sort events to handle overlapping intervals
     events.sort()
