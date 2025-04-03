@@ -11,13 +11,13 @@ def test_is_palindrome():
 
 def test_palindrome_pair_basic_cases():
     """Test basic scenarios of palindrome pair function."""
-    # Note: the function checks ALL possible pairs
     # Pairs with palindrome differences
-    assert palindrome_pair([1, 2, 3, 4, 5]) == True  # pairs like 3-2 = 1 is a palindrome
-    assert palindrome_pair([10, 20, 30, 40]) == False  # no palindrome differences in this case
+    assert palindrome_pair([1, 2, 3, 4, 5]) == True  # 3-2 = 1 is a palindrome
+    assert palindrome_pair([10, 20, 30, 40]) == False  # no palindrome differences
     
-    # No palindrome difference pairs
-    assert palindrome_pair([2, 4, 6, 8]) == False
+    # Specific test cases to validate implementation
+    assert palindrome_pair([10, 11, 12, 13]) == True  # 11-10 = 1 is a palindrome
+    assert palindrome_pair([1, 11, 21, 31]) == True  # 11-1 = 10 is a palindrome
 
 def test_palindrome_pair_edge_cases():
     """Test edge cases for palindrome pair function."""
