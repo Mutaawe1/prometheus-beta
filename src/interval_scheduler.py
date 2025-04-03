@@ -29,11 +29,11 @@ def max_simultaneous_intervals(intervals: List[Tuple[Union[int, float], Union[in
         if start > end:
             raise ValueError("Invalid interval: start time must be <= end time")
     
-    # Sort events by their start and end times with slight bias to start times
+    # Sort events by their start and end times
     events = []
     for start, end in intervals:
         events.append((start, 1))   # Prefer start events
-        events.append((end, -1))    # End events with negative weight
+        events.append((end + 1e-9, -1))    # Slightly delayed end to handle equal times
     
     # Sort events 
     events.sort(key=lambda x: (x[0], -x[1]))
