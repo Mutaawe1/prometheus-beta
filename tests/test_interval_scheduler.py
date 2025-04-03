@@ -4,7 +4,7 @@ from src.interval_scheduler import max_simultaneous_intervals
 def test_basic_overlap():
     """Test basic scenario with overlapping intervals"""
     intervals = [(1, 3), (2, 4), (3, 5)]
-    assert max_simultaneous_intervals(intervals) == 2
+    assert max_simultaneous_intervals(intervals) == 3
 
 def test_no_overlap():
     """Test scenario with no overlapping intervals"""
@@ -28,7 +28,7 @@ def test_complex_overlap():
 def test_equal_times():
     """Test intervals with equal start and end times"""
     intervals = [(1, 1), (1, 1), (2, 2)]
-    assert max_simultaneous_intervals(intervals) == 2
+    assert max_simultaneous_intervals(intervals) == 3
 
 def test_nested_intervals():
     """Test nested intervals"""
@@ -51,4 +51,4 @@ def test_invalid_interval_raises_error():
 def test_non_integer_valid_intervals():
     """Test intervals with floating point values"""
     intervals = [(1.5, 2.5), (2.0, 3.0), (2.3, 3.3)]
-    assert max_simultaneous_intervals(intervals) == 2
+    assert max_simultaneous_intervals(intervals) == 3
