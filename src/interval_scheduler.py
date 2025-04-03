@@ -33,7 +33,7 @@ def max_simultaneous_intervals(intervals: List[Tuple[Union[int, float], Union[in
     events = []
     for start, end in intervals:
         events.append((start, 1))  # Start of interval
-        events.append((end + 1e-10, -1))   # Slightly delayed end to handle equal times
+        events.append((end, -1))   # End of interval
     
     # Sort events to handle overlapping intervals
     events.sort()
