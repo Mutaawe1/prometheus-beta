@@ -10,6 +10,9 @@ def can_convert_by_one_deletion(word1: str, word2: str) -> bool:
         bool: True if word1 can be converted to word2 by deleting exactly one character, 
               False otherwise
     
+    Raises:
+        TypeError: If either input is not a string
+    
     Examples:
         >>> can_convert_by_one_deletion('abcd', 'abc')  # delete 'd'
         True
@@ -18,6 +21,10 @@ def can_convert_by_one_deletion(word1: str, word2: str) -> bool:
         >>> can_convert_by_one_deletion('abc', 'abc')  # same word
         False
     """
+    # Type checking
+    if not isinstance(word1, str) or not isinstance(word2, str):
+        raise TypeError("Both inputs must be strings")
+    
     # If lengths differ by more than 1, conversion is impossible
     if len(word1) - len(word2) != 1:
         return False
