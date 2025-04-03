@@ -12,8 +12,8 @@ def test_is_palindrome():
 def test_palindrome_pair_basic_cases():
     """Test basic scenarios of palindrome pair function."""
     # Pairs with palindrome differences
-    assert palindrome_pair([1, 2, 3, 4, 5]) == True  # e.g., 2-11 = 11 is a palindrome
-    assert palindrome_pair([10, 20, 30, 40]) == True  # e.g., 30-11 = 19 is a palindrome
+    assert palindrome_pair([1, 2, 3, 4, 5]) == True  # 4-3 = 1 is a palindrome
+    assert palindrome_pair([10, 20, 30, 40]) == True  # 20-11 = 9 is a palindrome
     
     # No palindrome difference pairs
     assert palindrome_pair([1, 3, 5, 7]) == False
@@ -45,4 +45,4 @@ def test_palindrome_pair_error_handling():
 def test_palindrome_pair_large_numbers():
     """Test palindrome pair function with larger numbers."""
     assert palindrome_pair([11, 22, 33, 44, 55]) == True  # multiple palindrome differences
-    assert palindrome_pair([1000, 2000, 3000, 4000]) == True
+    assert palindrome_pair([1000, 2000, 3000, 4000]) == True  # e.g., 2000-1001 = 999 is a palindrome
